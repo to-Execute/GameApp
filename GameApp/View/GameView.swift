@@ -25,7 +25,7 @@ struct GameView: View {
                 Text("GUESS THE COUNTRY FROM THE FLAG ?")
             }
             
-                HStack {
+            HStack {
                 Image(viewModel.countryCode.lowercased())
                 VStack(spacing: 10) {
                     
@@ -37,7 +37,7 @@ struct GameView: View {
                                 selectedOption = key
                             }
                         }
-                    
+                        
                     } label: {
                         Text(viewModel.options.values.sorted()[0])
                             .lineLimit(1)
@@ -117,8 +117,8 @@ struct GameView: View {
                             .font(.system(size: 12))
                     }
                 }
-        }
-        
+            }
+            
         }
         .padding()
     }

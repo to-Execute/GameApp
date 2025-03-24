@@ -2,34 +2,68 @@
 //  GameAppViewModelTests.swift
 //  GameAppTests
 //
-//  Created by SreeNath on 24/03/2025.
+//  Created on 24/03/2025.
 //
 
 import XCTest
+@testable import GameApp
+import Testing
 
-final class GameAppViewModelTests: XCTestCase {
-
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+class GameAppViewModelTests: XCTestCase {
+    
+    var viewModel: GameAppViewModel!
+    
+    override func setUp() {
+        super.setUp()
+        viewModel = GameAppViewModel()
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    override func tearDown() {
+        viewModel = nil
+        super.tearDown()
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func testGetQuestions() {
+        viewModel.getQuestions()
+        let exception = XCTestExpectation(description: "Waiting for data")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            XCTAssertTrue(self.viewModel.questions.count > 0)
+            exception.fulfill()
         }
+        wait(for: [exception], timeout: 5)
     }
-
+    func testSingleQuestion() {
+        viewModel.questions = [
+            Question(answerID: 1, countries: [Country(countryName: "USA", id: 1), Country(countryName: "Canada", id: 2)], countryCode: "US"),
+            Question(answerID: 2, countries: [Country(countryName: "Japan", id: 3)], countryCode: "JP")
+        ]
+        viewModel.currentIndex = 0
+        viewModel.singleQuestion()
+        
+        XCTAssertEqual(viewModel.answerID, 1)
+        XCTAssertEqual(viewModel.countryCode, "US")
+        XCTAssertEqual(viewModel.options.count, 2)
+        XCTAssertEqual(viewModel.options[1], "USA")
+        XCTAssertEqual(viewModel.options[2], "Canada")
+        
+        viewModel.currentIndex = 1
+        viewModel.singleQuestion()
+        
+        XCTAssertEqual(viewModel.answerID, 2)
+        XCTAssertEqual(viewModel.countryCode, "JP")
+        XCTAssertEqual(viewModel.options.count, 3)
+        XCTAssertEqual(viewModel.options[3], "Japan")
+    }
+    func testCheckAnswer_Correct() {
+        viewModel.answerID = 1
+        viewModel.checkAnswer(optionId: 1)
+        XCTAssertTrue(viewModel.isCorrect)
+    }
+    
+    func testCheckAnswer_Incorrect() {
+        viewModel.answerID = 1
+        viewModel.checkAnswer(optionId: 2)
+        XCTAssertFalse(viewModel.isCorrect)
+    }
+    
 }
+

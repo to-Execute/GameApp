@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+
 class GameAppViewModel: ObservableObject {
     @Published var questions : [Question] = []
     @Published var countries : [Country] = []
@@ -21,11 +22,9 @@ class GameAppViewModel: ObservableObject {
         NetworkServices.shared.parseJson(GameAppModel.self, file: "questions.json") { response, data  in
             print(response)
             if response == "success" {
-              
+                
                 self.questions = data.questions
                 print(self.questions.count)
-            } else {
-                
             }
         }
     }
@@ -36,7 +35,7 @@ class GameAppViewModel: ObservableObject {
         self.countryCode = currentQuestion.countryCode
         for  country in currentQuestion.countries {
             self.options[country.id] = country.countryName
-         }
+        }
         
     }
     func checkAnswer(optionId: Int) {

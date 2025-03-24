@@ -47,7 +47,7 @@ struct GameAppView: View {
                                     bottomTrailingRadius: 7.0,
                                     topTrailingRadius: 7.0))
                                 .onReceive(questionIntervel) { time in
-                                        guard isActive else { return }
+                                    guard isActive else { return }
                                     if questionTimer < 30 {
                                         if showGameView {
                                             questionTimer += 1
@@ -56,8 +56,8 @@ struct GameAppView: View {
                                         questionTimer = 0
                                         timer.upstream.connect().cancel()
                                     }
-                                        
-                                    }
+                                    
+                                }
                             
                             
                             Text("FLAGS CHALLENGE")
@@ -106,8 +106,8 @@ struct GameAppView: View {
                 }
             }
             .onReceive(questionIntervel) { time in
-                    guard isActive else { return }
-                    
+                guard isActive else { return }
+                
                 if questionTimer < 30 {
                     if viewModel.currentIndex == viewModel.questions.count - 1{
                         timer.upstream.connect().cancel()
@@ -119,8 +119,8 @@ struct GameAppView: View {
                     print(viewModel.currentIndex)
                     timer.upstream.connect().cancel()
                 }
-                    
-                }
+                
+            }
             .onChange(of: scenePhase) {
                 if scenePhase == .active {
                     isActive = true
@@ -131,9 +131,9 @@ struct GameAppView: View {
         }
     }
     func stopTimer() {
-            self.questionIntervel.upstream.connect().cancel()
-        }
-        
+        self.questionIntervel.upstream.connect().cancel()
+    }
+    
     mutating func startTimer() {
         self.questionIntervel = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     }
@@ -156,8 +156,7 @@ struct GameOverView: View {
             if showScore {
                 HStack {
                     Text(finalScore)
-                        .padding()
-                        
+                        .padding()                   
                 }
             } else {
                 Text("GAME OVER")
