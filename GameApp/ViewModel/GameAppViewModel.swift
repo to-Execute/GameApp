@@ -39,12 +39,6 @@ class GameAppViewModel: ObservableObject {
          }
         
     }
-//    func countDownTimer(time: Int) {
-//        let hours   = Int(time) / 3600
-//        let minutes = Int(time) / 60 % 60
-//        let seconds = Int(time) % 60
-//        self.countDown = String(format:"%02i:%02i:%02i", hours, minutes, seconds)
-//    }
     func checkAnswer(optionId: Int) {
         if optionId == self.answerID {
             self.isCorrect = true

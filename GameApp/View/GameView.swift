@@ -2,7 +2,7 @@
 //  GameView.swift
 //  GameApp
 //
-//  Created by SreeNath on 23/03/2025.
+//  Created on 23/03/2025.
 //
 
 import SwiftUI
@@ -18,7 +18,6 @@ struct GameView: View {
     @State var showAnswer: Bool = false
     @State var selectedOption = 0
     @State var options: [String] = []
-    
     var body: some View {
         VStack(spacing: 20) {
             HStack {
@@ -43,7 +42,7 @@ struct GameView: View {
                         Text(viewModel.options.values.sorted()[0])
                             .lineLimit(1)
                     }
-                    .modifier(OptionsButtonModifier(isTapped: $isTappedOption1, isCorrect: .constant(true)))
+                    .modifier(OptionsButtonModifier(isTapped: $isTappedOption1, isCorrect: selectedOption == viewModel.answerID ? .constant(true) : .constant(false)))
                     .padding(.bottom, -7)
                     
                     if isTappedOption1 {
@@ -64,7 +63,7 @@ struct GameView: View {
                         Text(viewModel.options.values.sorted()[1])
                             .lineLimit(1)
                     }
-                    .modifier(OptionsButtonModifier(isTapped: $isTappedOption2, isCorrect: .constant(true) ))
+                    .modifier(OptionsButtonModifier(isTapped: $isTappedOption2, isCorrect: selectedOption == viewModel.answerID ? .constant(true) : .constant(false)))
                     .padding(.bottom, -7)
                     
                     if isTappedOption2 {
@@ -87,7 +86,7 @@ struct GameView: View {
                         Text(viewModel.options.values.sorted()[2])
                             .lineLimit(1)
                     }
-                    .modifier(OptionsButtonModifier(isTapped: $isTappedOption3, isCorrect: .constant(false)))
+                    .modifier(OptionsButtonModifier(isTapped: $isTappedOption3, isCorrect: selectedOption == viewModel.answerID ? .constant(true) : .constant(false)))
                     .padding(.bottom, -7)
                     
                     if isTappedOption3 {
@@ -108,7 +107,7 @@ struct GameView: View {
                         Text(viewModel.options.values.sorted()[3])
                             .lineLimit(1)
                     }
-                    .modifier(OptionsButtonModifier(isTapped: $isTappedOption4, isCorrect: .constant(true) ))
+                    .modifier(OptionsButtonModifier(isTapped: $isTappedOption4, isCorrect: selectedOption == viewModel.answerID ? .constant(true) : .constant(false)))
                     .padding(.bottom, -7)
                     
                     if isTappedOption4 {

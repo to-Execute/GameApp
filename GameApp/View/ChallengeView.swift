@@ -2,7 +2,7 @@
 //  ChallengeView.swift
 //  GameApp
 //
-//  Created by SreeNath on 23/03/2025.
+//  Created on 23/03/2025.
 //
 
 import SwiftUI
@@ -18,11 +18,11 @@ struct ChallengeView: View {
     
     var body: some View {
         VStack(spacing: 10) {
-            Text("CHALLENGE")
+            Text(AppConstants.kChallenge)
                 .foregroundStyle(.appBlack)
                 .fontWeight(.semibold)
                 .font(.system(size: 18))
-            Text("WILL START IN")
+            Text(AppConstants.kWillStartIn)
                 .foregroundStyle(.appBlack)
                 .fontWeight(.semibold)
                 .font(.system(size: 24))
